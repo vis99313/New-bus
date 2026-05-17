@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>🚌 Bus Tracker - Student Bus System</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -12,41 +12,109 @@
         * {
             -webkit-user-select: none;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         input, textarea, select {
             -webkit-user-select: text !important;
             user-select: text !important;
         }
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
         body {
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
+            -webkit-touch-callout: none;
         }
-        @media (max-width: 1024px) {
+        #root {
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        /* Tablet Optimizations */
+        @media (min-width: 768px) and (max-width: 1024px) {
             body {
-                font-size: 14px;
+                font-size: 15px;
             }
             input, select, textarea, button {
-                font-size: 16px !important;
+                font-size: 15px !important;
             }
-        }
-        .tablet-grid {
-            display: grid;
-            gap: 1rem;
-        }
-        @media (min-width: 768px) {
             .tablet-grid {
+                display: grid;
+                gap: 1.25rem;
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        @media (min-width: 1024px) {
+        
+        @media (min-width: 1025px) {
             .tablet-grid {
+                display: grid;
+                gap: 1.25rem;
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+        
         .touch-friendly-btn {
-            padding: 12px 16px;
-            min-height: 44px;
-            min-width: 44px;
+            padding: 14px 18px;
+            min-height: 48px;
+            min-width: 48px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .touch-friendly-btn:active {
+            opacity: 0.8;
+        }
+        
+        /* Tablet table optimization */
+        @media (min-width: 768px) {
+            table {
+                font-size: 15px;
+            }
+            th, td {
+                padding: 12px !important;
+            }
+        }
+        
+        /* Input optimization for tablets */
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"],
+        select,
+        textarea {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        /* iOS specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            input[type="text"],
+            input[type="tel"],
+            input[type="password"],
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+        
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        /* Smooth scrolling */
+        .overflow-x-auto {
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -243,12 +311,12 @@
             if (currentPage === "login") {
                 return (
                     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-                        <div className="bg-white p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-md">
-                            <div className="text-center mb-6">
-                                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+                        <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+                            <div className="text-center mb-8">
+                                <h1 className="text-4xl font-bold text-gray-800 mb-2">
                                     🚌 Bus Tracker
                                 </h1>
-                                <p className="text-gray-600">Admin Login</p>
+                                <p className="text-gray-600 text-lg">Admin Login</p>
                             </div>
 
                             <input
@@ -269,11 +337,11 @@
                             />
                             <button
                                 onClick={handleLogin}
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition touch-friendly-btn"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition touch-friendly-btn text-lg"
                             >
                                 Login
                             </button>
-                            <p className="text-center text-xs md:text-sm text-gray-500 mt-4">
+                            <p className="text-center text-sm text-gray-500 mt-4">
                                 Demo: admin / admin123
                             </p>
                         </div>
@@ -283,34 +351,34 @@
 
             if (currentPage === "admin") {
                 return (
-                    <div className="min-h-screen bg-gray-100 p-3 md:p-6">
-                        <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-3 md:p-6">
+                    <div className="min-h-screen bg-gray-100 p-4 md:p-6">
+                        <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6">
                             {/* Header */}
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b gap-3">
-                                <div className="flex items-center gap-3">
-                                    <span className="text-3xl md:text-4xl">🚌</span>
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b gap-4">
+                                <div className="flex items-center gap-4">
+                                    <span className="text-5xl">🚌</span>
                                     <div>
-                                        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+                                        <h1 className="text-4xl font-bold text-gray-800">
                                             Admin Dashboard
                                         </h1>
-                                        <p className="text-gray-600 text-xs md:text-sm">
+                                        <p className="text-gray-600 text-base">
                                             Manage bus trips and student records
                                         </p>
                                     </div>
                                 </div>
                                 <button
                                     onClick={handleLogout}
-                                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition touch-friendly-btn w-full md:w-auto"
+                                    className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition touch-friendly-btn w-full md:w-auto text-lg"
                                 >
                                     Logout
                                 </button>
                             </div>
 
                             {/* Tab Navigation */}
-                            <div className="flex gap-2 mb-6">
+                            <div className="flex gap-3 mb-8">
                                 <button
                                     onClick={() => setAdminTab("records")}
-                                    className={`px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition touch-friendly-btn flex-1 md:flex-none text-sm md:text-base ${
+                                    className={`px-6 py-3 rounded-lg font-semibold transition touch-friendly-btn text-base ${
                                         adminTab === "records"
                                             ? "bg-blue-600 text-white"
                                             : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -320,7 +388,7 @@
                                 </button>
                                 <button
                                     onClick={() => setAdminTab("settings")}
-                                    className={`px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition touch-friendly-btn flex-1 md:flex-none text-sm md:text-base ${
+                                    className={`px-6 py-3 rounded-lg font-semibold transition touch-friendly-btn text-base ${
                                         adminTab === "settings"
                                             ? "bg-blue-600 text-white"
                                             : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -334,20 +402,20 @@
                             {adminTab === "records" && (
                                 <div>
                                     {/* Add Record Form */}
-                                    <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 md:p-6 mb-6">
-                                        <h2 className="text-lg md:text-xl font-bold mb-4">Add New Student</h2>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                                    <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
+                                        <h2 className="text-2xl font-bold mb-6">Add New Student</h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                                             <input
                                                 type="text"
                                                 placeholder="Student Name"
                                                 value={studentName}
                                                 onChange={(e) => setStudentName(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                                             />
                                             <select
                                                 value={vehicleName}
                                                 onChange={(e) => setVehicleName(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                                             >
                                                 <option value="">Select Vehicle</option>
                                                 {vehicles.map((vehicle, idx) => (
@@ -359,7 +427,7 @@
                                             <select
                                                 value={studentClass}
                                                 onChange={(e) => setStudentClass(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                                             >
                                                 <option value="">Select Class</option>
                                                 {classes.map((cls, idx) => (
@@ -371,7 +439,7 @@
                                             <select
                                                 value={section}
                                                 onChange={(e) => setSection(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                                             >
                                                 <option value="">Select Section</option>
                                                 {sections.map((sec, idx) => (
@@ -383,7 +451,7 @@
                                             <select
                                                 value={tripName}
                                                 onChange={(e) => setTripName(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                                             >
                                                 <option value="">Select Trip</option>
                                                 {trips.map((trip, idx) => (
@@ -397,34 +465,34 @@
                                                 placeholder="WhatsApp Number"
                                                 value={whatsappNumber}
                                                 onChange={(e) => setWhatsappNumber(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                                             />
                                         </div>
                                         <button
                                             onClick={addRecord}
-                                            className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition touch-friendly-btn text-sm md:text-base"
+                                            className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition touch-friendly-btn text-lg"
                                         >
                                             ✅ Add Student Record
                                         </button>
                                     </div>
 
                                     {/* Filters */}
-                                    <details className="bg-white border border-gray-300 rounded-lg p-4 mb-6">
-                                        <summary className="cursor-pointer font-bold text-base md:text-lg">
+                                    <details className="bg-white border border-gray-300 rounded-lg p-6 mb-8">
+                                        <summary className="cursor-pointer font-bold text-xl">
                                             🔍 Filters & Search
                                         </summary>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 mt-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
                                             <input
                                                 type="text"
                                                 placeholder="Search Student Name"
                                                 value={searchName}
                                                 onChange={(e) => setSearchName(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 text-base"
                                             />
                                             <select
                                                 value={filterVehicle}
                                                 onChange={(e) => setFilterVehicle(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 text-base"
                                             >
                                                 <option value="">All Vehicles</option>
                                                 {vehicles.map((vehicle, idx) => (
@@ -436,7 +504,7 @@
                                             <select
                                                 value={filterClass}
                                                 onChange={(e) => setFilterClass(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 text-base"
                                             >
                                                 <option value="">All Classes</option>
                                                 {classes.map((cls, idx) => (
@@ -448,7 +516,7 @@
                                             <select
                                                 value={filterSection}
                                                 onChange={(e) => setFilterSection(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 text-base"
                                             >
                                                 <option value="">All Sections</option>
                                                 {sections.map((sec, idx) => (
@@ -460,7 +528,7 @@
                                             <select
                                                 value={filterTrip}
                                                 onChange={(e) => setFilterTrip(e.target.value)}
-                                                className="border border-gray-300 rounded-lg p-3 text-sm md:text-base"
+                                                className="border border-gray-300 rounded-lg p-3 text-base"
                                             >
                                                 <option value="">All Trips</option>
                                                 {trips.map((trip, idx) => (
@@ -474,44 +542,44 @@
 
                                     {/* Records Table */}
                                     {filteredRecords.length === 0 ? (
-                                        <div className="text-center py-12">
-                                            <p className="text-gray-500 text-base md:text-lg">
+                                        <div className="text-center py-16">
+                                            <p className="text-gray-500 text-xl">
                                                 No student records found
                                             </p>
                                         </div>
                                     ) : (
                                         <div className="overflow-x-auto">
-                                            <table className="w-full border-collapse text-sm md:text-base">
-                                                <thead className="bg-gray-800 text-white sticky top-0">
+                                            <table className="w-full border-collapse text-base">
+                                                <thead className="bg-gray-800 text-white sticky-header">
                                                     <tr>
-                                                        <th className="border p-2 md:p-3 text-left">Student Name</th>
-                                                        <th className="border p-2 md:p-3 text-left">Vehicle</th>
-                                                        <th className="border p-2 md:p-3 text-left">Class</th>
-                                                        <th className="border p-2 md:p-3 text-left">Section</th>
-                                                        <th className="border p-2 md:p-3 text-left">Trip</th>
-                                                        <th className="border p-2 md:p-3 text-left">WhatsApp</th>
-                                                        <th className="border p-2 md:p-3 text-center">Actions</th>
+                                                        <th className="border p-4 text-left">Student Name</th>
+                                                        <th className="border p-4 text-left">Vehicle</th>
+                                                        <th className="border p-4 text-left">Class</th>
+                                                        <th className="border p-4 text-left">Section</th>
+                                                        <th className="border p-4 text-left">Trip</th>
+                                                        <th className="border p-4 text-left">WhatsApp</th>
+                                                        <th className="border p-4 text-center">Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {filteredRecords.map((record) => (
-                                                        <tr key={record.id} className="hover:bg-gray-50">
-                                                            <td className="border p-2 md:p-3">{record.studentName}</td>
-                                                            <td className="border p-2 md:p-3">{record.vehicleName}</td>
-                                                            <td className="border p-2 md:p-3">{record.studentClass}</td>
-                                                            <td className="border p-2 md:p-3">{record.section}</td>
-                                                            <td className="border p-2 md:p-3">{record.tripName}</td>
-                                                            <td className="border p-2 md:p-3">{record.whatsappNumber}</td>
-                                                            <td className="border p-2 md:p-3 text-center space-x-1 md:space-x-2">
+                                                        <tr key={record.id} className="hover:bg-gray-50 border-b">
+                                                            <td className="border p-4">{record.studentName}</td>
+                                                            <td className="border p-4">{record.vehicleName}</td>
+                                                            <td className="border p-4">{record.studentClass}</td>
+                                                            <td className="border p-4">{record.section}</td>
+                                                            <td className="border p-4">{record.tripName}</td>
+                                                            <td className="border p-4">{record.whatsappNumber}</td>
+                                                            <td className="border p-4 text-center space-x-2">
                                                                 <button
                                                                     onClick={() => sendWhatsappMessage(record)}
-                                                                    className="bg-green-500 hover:bg-green-600 text-white px-2 md:px-3 py-1 rounded text-xs md:text-sm touch-friendly-btn"
+                                                                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-base touch-friendly-btn"
                                                                 >
                                                                     💬
                                                                 </button>
                                                                 <button
                                                                     onClick={() => deleteRecord(record.id)}
-                                                                    className="bg-red-500 hover:bg-red-600 text-white px-2 md:px-3 py-1 rounded text-xs md:text-sm touch-friendly-btn"
+                                                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-base touch-friendly-btn"
                                                                 >
                                                                     🗑️
                                                                 </button>
@@ -527,7 +595,7 @@
 
                             {/* SETTINGS TAB */}
                             {adminTab === "settings" && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                <div className="tablet-grid">
                                     <SettingsCard
                                         title="🚌 Vehicles"
                                         items={vehicles}
@@ -577,19 +645,19 @@
             onRemove,
         }) {
             return (
-                <div className="border border-gray-300 rounded-2xl p-4 md:p-6 bg-white">
-                    <h2 className="text-lg md:text-xl font-bold mb-4">{title}</h2>
+                <div className="border border-gray-300 rounded-2xl p-6 bg-white">
+                    <h2 className="text-xl font-bold mb-4">{title}</h2>
                     <div className="flex gap-2 mb-4">
                         <input
                             value={newItem}
                             onChange={(e) => setNewItem(e.target.value)}
                             onKeyPress={(e) => e.key === "Enter" && onAdd()}
                             placeholder="Add new item"
-                            className="flex-1 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                            className="flex-1 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                         />
                         <button
                             onClick={onAdd}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 rounded-lg font-semibold transition touch-friendly-btn text-sm md:text-base"
+                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-lg font-semibold transition touch-friendly-btn text-base"
                         >
                             Add
                         </button>
@@ -600,17 +668,17 @@
                                 key={idx}
                                 className="flex justify-between items-center border border-gray-200 rounded-lg p-3 hover:bg-gray-50"
                             >
-                                <span className="font-medium text-sm md:text-base">{item}</span>
+                                <span className="font-medium text-base">{item}</span>
                                 <button
                                     onClick={() => onRemove(idx)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs md:text-sm touch-friendly-btn"
+                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm touch-friendly-btn"
                                 >
                                     Remove
                                 </button>
                             </div>
                         ))}
                         {items.length === 0 && (
-                            <p className="text-gray-400 text-xs md:text-sm">No items added yet</p>
+                            <p className="text-gray-400 text-sm">No items added yet</p>
                         )}
                     </div>
                 </div>
