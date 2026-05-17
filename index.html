@@ -145,11 +145,74 @@
             const [filterSection, setFilterSection] = useState("");
             const [filterTrip, setFilterTrip] = useState("");
 
-            const [records, setRecords] = useState([]);
-            const [vehicles, setVehicles] = useState(["Ramesh Kumar"]);
-            const [trips, setTrips] = useState(["Morning Route"]);
-            const [classes, setClasses] = useState(["Class 1"]);
-            const [sections, setSections] = useState(["A"]);
+            const demoRecords = [
+                {
+                    id: 1,
+                    studentName: "Aarjun Sharma",
+                    vehicleName: "Ramesh Kumar",
+                    tripName: "Morning Route",
+                    studentClass: "Class 5",
+                    section: "A",
+                    whatsappNumber: "9876543210",
+                    createdAt: "2026-05-17T08:00:00Z"
+                },
+                {
+                    id: 2,
+                    studentName: "Priya Patel",
+                    vehicleName: "Sanjay Singh",
+                    tripName: "Morning Route",
+                    studentClass: "Class 4",
+                    section: "B",
+                    whatsappNumber: "9123456789",
+                    createdAt: "2026-05-17T08:15:00Z"
+                },
+                {
+                    id: 3,
+                    studentName: "Aditya Kumar",
+                    vehicleName: "Ramesh Kumar",
+                    tripName: "Afternoon Route",
+                    studentClass: "Class 5",
+                    section: "A",
+                    whatsappNumber: "9988776655",
+                    createdAt: "2026-05-17T08:30:00Z"
+                },
+                {
+                    id: 4,
+                    studentName: "Sneha Gupta",
+                    vehicleName: "Vikram Joshi",
+                    tripName: "Morning Route",
+                    studentClass: "Class 3",
+                    section: "C",
+                    whatsappNumber: "9111222333",
+                    createdAt: "2026-05-17T08:45:00Z"
+                },
+                {
+                    id: 5,
+                    studentName: "Rohan Verma",
+                    vehicleName: "Sanjay Singh",
+                    tripName: "Afternoon Route",
+                    studentClass: "Class 4",
+                    section: "B",
+                    whatsappNumber: "9555666777",
+                    createdAt: "2026-05-17T09:00:00Z"
+                },
+                {
+                    id: 6,
+                    studentName: "Isha Desai",
+                    vehicleName: "Vikram Joshi",
+                    tripName: "Morning Route",
+                    studentClass: "Class 5",
+                    section: "C",
+                    whatsappNumber: "9777888999",
+                    createdAt: "2026-05-17T09:15:00Z"
+                }
+            ];
+
+            const [records, setRecords] = useState(demoRecords);
+            const [vehicles, setVehicles] = useState(["Ramesh Kumar", "Sanjay Singh", "Vikram Joshi"]);
+            const [trips, setTrips] = useState(["Morning Route", "Afternoon Route"]);
+            const [classes, setClasses] = useState(["Class 3", "Class 4", "Class 5"]);
+            const [sections, setSections] = useState(["A", "B", "C"]);
 
             const [newVehicle, setNewVehicle] = useState("");
             const [newTrip, setNewTrip] = useState("");
